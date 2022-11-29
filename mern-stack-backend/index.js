@@ -5,12 +5,6 @@ app.use(express.json()); // post用設定
 const connectDB = require('./utils/database');
 const { ItemModel } = require('./utils/schemaModels');
 
-app.get('/', (req, res) => {
-  const msg = 'こんにちは!';
-  const statusCode = 200;
-  return res.status(statusCode).json(msg);
-});
-
 // ITEM function
 // Create Item
 app.post('/item/create', async (req, res) => {
@@ -26,6 +20,18 @@ app.post('/item/create', async (req, res) => {
 });
 
 // Read All Items
+app.get('/', async (req, res) => {
+  let message = 'アイテム読み取りAll成功';
+  try {
+    await connectDB();
+    const allItems = await ItemModel.find();
+    return res.status(200).json({ message, allItems });
+  } catch (error) {
+    message = 'アイテム読み取りAll失敗';
+    return res.status(400).json({ message });
+  }
+});
+
 // Read Single Item
 // Update Item
 // Delete Item
