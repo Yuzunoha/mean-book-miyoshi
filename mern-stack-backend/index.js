@@ -3,6 +3,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
 const connectDB = require('./utils/database');
+const { ItemModel } = require('./utils/schemaModels');
 
 app.get('/', (req, res) => {
   const msg = 'こんにちは!';
@@ -12,11 +13,16 @@ app.get('/', (req, res) => {
 
 // ITEM function
 // Create Item
-app.post('/item/create', (req, res) => {
-  connectDB();
-  const { body } = req;
-  console.log({ body });
-  return res.status(200).json('こんにちは');
+app.post('/item/create', async (req, res) => {
+  let message = 'アイテム作成成功';
+  try {
+    await connectDB();
+    await ItemModel.create(req.body);
+    return res.status(200).json({ message });
+  } catch (error) {
+    message = 'アイテム作成失敗';
+    return res.status(400).json({ message });
+  }
 });
 
 // Read All Items
