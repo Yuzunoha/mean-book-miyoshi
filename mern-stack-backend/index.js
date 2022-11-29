@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
+const connectDB = require('./utils/database');
 
 app.get('/', (req, res) => {
   const msg = 'こんにちは!';
@@ -12,6 +13,7 @@ app.get('/', (req, res) => {
 // ITEM function
 // Create Item
 app.post('/item/create', (req, res) => {
+  connectDB();
   const { body } = req;
   console.log({ body });
   return res.status(200).json('こんにちは');
