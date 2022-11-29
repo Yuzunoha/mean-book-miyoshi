@@ -9,6 +9,11 @@ app.get('/', (req, res) => {
 
 // ITEM function
 // Create Item
+app.post('/item/create', (req, res) => {
+  console.log({ req });
+  return res.status(200).json('こんにちは');
+});
+
 // Read All Items
 // Read Single Item
 // Update Item
