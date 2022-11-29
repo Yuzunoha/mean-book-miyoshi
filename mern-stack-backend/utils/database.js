@@ -2,23 +2,23 @@
 
 const mongoose = require('mongoose');
 
-const getSchema = () => {
+const getConnectionStr = () => {
   const dbName = 'Cluster0';
   const dbUser = 'yuzunoha';
   const dbUserPass = 'hbOeS7y6tuWRwMAA';
-  let schema = '';
-  schema += `mongodb+srv://${dbUser}:${dbUserPass}@cluster0.2wg6dv1.mongodb.net/`;
-  schema += `${dbName}?retryWrites=true&w=majority`;
-  return schema;
+  let connectionStr = '';
+  connectionStr += `mongodb+srv://${dbUser}:${dbUserPass}@cluster0.2wg6dv1.mongodb.net/`;
+  connectionStr += `${dbName}?retryWrites=true&w=majority`;
+  return connectionStr;
 };
 
 const connectDB = async () => {
-  const schema = getSchema();
+  const connectionStr = getConnectionStr();
   try {
-    await mongoose.connect(schema);
-    console.log('MongoDB 接続成功 ' + schema);
+    await mongoose.connect(connectionStr);
+    console.log('MongoDB 接続成功 ' + connectionStr);
   } catch (err) {
-    const errMsg = 'MongoDB 接続失敗' + schema;
+    const errMsg = 'MongoDB 接続失敗' + connectionStr;
     console.log(errMsg);
     throw new Error(errMsg);
   }
