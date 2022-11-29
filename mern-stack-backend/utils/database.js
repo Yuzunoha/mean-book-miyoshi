@@ -12,10 +12,10 @@ const getSchema = () => {
   return schema;
 };
 
-const connectDB = () => {
+const connectDB = async () => {
   const schema = getSchema();
   try {
-    mongoose.connect(schema);
+    await mongoose.connect(schema);
     console.log('MongoDB 接続成功 ' + schema);
   } catch (err) {
     const errMsg = 'MongoDB 接続失敗' + schema;
