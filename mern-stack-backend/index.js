@@ -33,8 +33,16 @@ app.get('/', async (req, res) => {
 });
 
 // Read Single Item
-app.get('/item/:id', (req, res) => {
-  return res.status(200).json({ ':id': req.params.id });
+app.get('/item/:id', async (req, res) => {
+  let message = 'アイテム読み取りSingle成功';
+  try {
+    await connectDB();
+    const singleItem = await ItemModel.findById(req.params.id);
+    return res.status(200).json({ message, singleItem });
+  } catch (error) {
+    message = 'アイテム読み取りSingle失敗';
+    return res.status(400).json({ message });
+  }
 });
 
 // Update Item
