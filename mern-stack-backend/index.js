@@ -59,6 +59,17 @@ app.put('/item/update/:id', async (req, res) => {
 });
 
 // Delete Item
+app.delete('/item/delete/:id', async (req, res) => {
+  let message = 'アイテム削除成功';
+  try {
+    await connectDB();
+    const result = await ItemModel.deleteOne({ _id: req.params.id });
+    return res.status(200).json({ message, result });
+  } catch (error) {
+    message = 'アイテム削除失敗';
+    return res.status(400).json({ message });
+  }
+});
 
 // USER function
 // Register User
