@@ -50,9 +50,8 @@ app.put('/item/update/:id', async (req, res) => {
   let message = 'アイテム編集成功';
   try {
     await connectDB();
-    const id = req.params.id;
-    const body = req.body;
-    return res.status(200).json({ message, body, id });
+    const result = await ItemModel.updateOne({ _id: req.params.id }, req.body);
+    return res.status(200).json({ message, result });
   } catch (error) {
     message = 'アイテム編集失敗';
     return res.status(400).json({ message });
