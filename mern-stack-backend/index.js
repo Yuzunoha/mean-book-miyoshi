@@ -46,6 +46,19 @@ app.get('/item/:id', async (req, res) => {
 });
 
 // Update Item
+app.put('/item/update/:id', async (req, res) => {
+  let message = 'アイテム編集成功';
+  try {
+    await connectDB();
+    const id = req.params.id;
+    const body = req.body;
+    return res.status(200).json({ message, body, id });
+  } catch (error) {
+    message = 'アイテム編集失敗';
+    return res.status(400).json({ message });
+  }
+});
+
 // Delete Item
 
 // USER function
