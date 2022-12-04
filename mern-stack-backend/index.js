@@ -3,7 +3,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
 const connectDB = require('./utils/database');
-const { ItemModel } = require('./utils/schemaModels');
+const { ItemModel, UserModel } = require('./utils/schemaModels');
 
 // ITEM function
 // Create Item
@@ -73,6 +73,15 @@ app.delete('/item/delete/:id', async (req, res) => {
 
 // USER function
 // Register User
+app.post('/user/register', async (req, res) => {
+  try {
+    await connectDB();
+    await UserModel.create(req.body);
+    return res.status(200).json({ message: 'ユーザ登録成功' });
+  } catch (error) {
+    return res.status(400).json({ message: 'ユーザ登録失敗' });
+  }
+});
 // Login User
 
 const port = 5000;
