@@ -3,13 +3,14 @@ const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
 const jwt = require('jsonwebtoken');
+const auth = require('./utils/auth');
 const connectDB = require('./utils/database');
 const { ItemModel, UserModel } = require('./utils/schemaModels');
 const secret_key = 'mern-market';
 
 // ITEM function
 // Create Item
-app.post('/item/create', async (req, res) => {
+app.post('/item/create', auth, async (req, res) => {
   let message = 'アイテム作成成功';
   try {
     await connectDB();
@@ -48,7 +49,7 @@ app.get('/item/:id', async (req, res) => {
 });
 
 // Update Item
-app.put('/item/update/:id', async (req, res) => {
+app.put('/item/update/:id', auth, async (req, res) => {
   let message = 'アイテム編集成功';
   try {
     await connectDB();
@@ -61,7 +62,7 @@ app.put('/item/update/:id', async (req, res) => {
 });
 
 // Delete Item
-app.delete('/item/delete/:id', async (req, res) => {
+app.delete('/item/delete/:id', auth, async (req, res) => {
   let message = 'アイテム削除成功';
   try {
     await connectDB();
