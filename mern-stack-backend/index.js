@@ -3,10 +3,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
 const jwt = require('jsonwebtoken');
-const auth = require('./utils/auth');
+const { auth, secret_key } = require('./utils/auth');
 const connectDB = require('./utils/database');
 const { ItemModel, UserModel } = require('./utils/schemaModels');
-const secret_key = 'mern-market';
 
 // ITEM function
 // Create Item

@@ -1,3 +1,5 @@
+const secret_key = 'mern-market';
+
 const auth = async (req, res, next) => {
   if (req.method === 'GET') {
     return next();
@@ -11,4 +13,4 @@ const auth = async (req, res, next) => {
   } catch (err) {}
 };
 
-module.exports = auth;
+module.exports = { auth, secret_key };
