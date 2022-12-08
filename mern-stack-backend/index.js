@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
+const jwt = require('jsonwebtoken');
 const connectDB = require('./utils/database');
 const { ItemModel, UserModel } = require('./utils/schemaModels');
+const secret_key = 'mern-market';
 
 // ITEM function
 // Create Item
@@ -91,7 +93,10 @@ app.post('/user/login', async (req, res) => {
       /* ユーザがいる */
       if (savedUserData.password === req.body.password) {
         /* パスワードが正しい */
-        return res.status(200).json({ message: 'ログイン成功' });
+        // jwt発行
+        const payload = { email: req.body.email };
+        const token = jwt.sign(payload, secret_key, { expiresIn: '23h' });
+        return res.status(200).json({ message: 'ログイン成功', token });
       }
     }
   } catch (error) {}
