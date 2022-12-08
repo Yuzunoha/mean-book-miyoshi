@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const secret_key = 'mern-market';
 
 const auth = async (req, res, next) => {
@@ -9,8 +11,11 @@ const auth = async (req, res, next) => {
     return res.status(400).json({ message: 'トークンがありません' });
   }
   try {
-    // TODO
-  } catch (err) {}
+    const decoded = jwt.verify(token, secret_key);
+    console.log({ decoded });
+  } catch (err) {
+    return res.status(400).json({ message: '不正なトークンです' });
+  }
 };
 
-module.exports = { auth, secret_key };
+module.exports = { jwt, auth, secret_key };
