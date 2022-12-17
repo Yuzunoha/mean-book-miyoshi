@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
 app.use(express.urlencoded({ extended: true })); // post用設定
 app.use(express.json()); // post用設定
 const { jwt, auth, secret_key } = require('./utils/auth');
