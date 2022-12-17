@@ -83,6 +83,7 @@ app.post('/user/register', async (req, res) => {
     return res.status(400).json({ message: 'ユーザ登録失敗' });
   }
 });
+
 // Login User
 app.post('/user/login', async (req, res) => {
   try {
@@ -100,6 +101,14 @@ app.post('/user/login', async (req, res) => {
     }
   } catch (error) {}
   return res.status(400).json({ message: 'ログイン失敗' });
+});
+
+app.get('/test', async (req, res) => {
+  // await connectDB();
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQG1vbm90ZWluLmNvbTQiLCJpYXQiOjE2NzEyOTg5MzAsImV4cCI6MTY3MTM4MTczMH0.ZtUq8MS0CaKriekWlbDyd6Lj1pECz40TDHecQ-hCBm8';
+  const decoded = jwt.verify(token, secret_key);
+  const msg = '123あいう';
+  return res.json({ msg, decoded });
 });
 
 const port = 5000;
